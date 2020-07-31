@@ -1,7 +1,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '',{
-	preloaed:preloaed,
-	createa:createa,
-	updatee:updatee
+	preload:preload,
+	create:create,
+	update:update
 });
 
 var score = 0;
