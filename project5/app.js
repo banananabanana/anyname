@@ -1,32 +1,42 @@
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d")
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '',{
+	preloaed:preloaed,
+	createa:createa,
+	updatee:updatee
+});
 
-ctx.moveTo(5,5);
-ctx.lineTo(125,125);
-ctx.strokeStyle = "blue";
-ctx.lineWidth = 5;
-ctx.stroke();
+var score = 0;
+var life = 3;
 
-ctx.fillStyle = "red";
-ctx.fillRect(100,100, 150, 100)
+function preload() {
+	game.load.image("sky","assets/sky.png");
+	game.load.image("ground", "assets/platform.png");
+	game.load.image("star", "assets/star.png");
+	game.load.spritesheet("dude", "assets/dude.png", 32, 48);
+	game.load.spritesheet("baddie", "assets/baddie.png", 32, 32);
+}
+function create() {
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-ctx.strokeStyle = "green;"
-ctx.strokeRect (150, 150, 75, 150)
+	game.add.sprite(0, 0, "sky");
 
-ctx.beginPath();
-ctx.moveTo(150, 25);
-ctx.lineTo(225, 150);
+	platforms = game.add.physicsGroup();
+	platforms.enableBody = true;
 
-ctx.moveTo(225, 150);
-ctx.lineTo(75, 150);
-ctx.closePath();
-ctx.stroke();
-ctx.fillStyle = "green";
-ctx.fill();
+	var ground = platforms.create(0, 550, "ground");
+	ground.scale.setTo(2, 2);
+	ground.body.immovable = true;
 
-ctx.beginPath();
-ctx.arc(150, 150, 50, 0, 6.28);
-ctx.closePath();
-ctx.stroke();
-ctx.fillStyle = "red";
-ctx.fill();
+	var ledge = platforms.create(400, 400, "ground");
+	ledge.body.immovable = true;
+	var ledge = platforms.create(-100, 250, "ground");
+	ledge.body.immovable = true;
+
+	var style = {font:  "bold 32px Arial", fill: "#fff"}
+	scorelabel = game.add.text(300,560, "score: ", style);
+	scoretext = game.add.text(420, 560, score, style);
+	scorelabel = game.add.text(10,5, "lives: ", style);
+	scoretext = game.add.text(120, 5, life, style);
+}
+function update() {
+	
+}
